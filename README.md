@@ -27,39 +27,71 @@ cd patient-management-system
 
 2. Cài đặt dependencies:
 ```bash
-npm run install:all
+npm run install-all
 ```
 
-3. Tạo file .env từ .env.example và cập nhật các biến môi trường
+3. Cấu hình môi trường:
+   - Tạo file `.env` trong thư mục `server/` với nội dung:
+```env
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/patient-management
+JWT_SECRET=your-secret-key
+```
 
-4. Khởi chạy ứng dụng:
+4. Khởi động MongoDB:
+```bash
+# Đảm bảo MongoDB đang chạy trên localhost:27017
+```
+
+5. Khởi chạy ứng dụng:
 
 Development mode:
 ```bash
-# Chạy backend server
-npm run dev:server
+# Chạy toàn bộ ứng dụng (cả frontend và backend)
+npm start
 
-# Chạy frontend development server (trong terminal khác)
-npm run dev:client
+# Hoặc chạy riêng lẻ:
+# Backend server (trong thư mục server/)
+cd server && npm run dev
+
+# Frontend development server (trong thư mục client/)
+cd client && npm run dev
 ```
 
 Production mode:
 ```bash
-npm start
+# Build frontend
+cd client && npm run build
+
+# Chạy backend
+cd server && npm start
 ```
+
+## Truy cập ứng dụng
+
+- Frontend: http://localhost:5173 (Vite dev server)
+- Backend API: http://localhost:3000
 
 ## Cấu trúc Project
 
 ```
 patient-management-system/
 ├── client/                 # Vue.js frontend
+│   ├── src/
+│   │   ├── components/    # Vue components
+│   │   ├── views/         # Vue pages
+│   │   ├── router/        # Vue Router
+│   │   ├── store/         # Vuex store
+│   │   └── plugins/       # Vuetify & API plugins
+│   └── package.json
 ├── server/                 # Node.js backend
-│   ├── config/            # Cấu hình
+│   ├── config/            # Cấu hình database
 │   ├── controllers/       # Xử lý logic
 │   ├── models/           # MongoDB models
 │   ├── routes/           # API routes
+│   ├── uploads/          # File uploads
 │   └── index.js          # Entry point
-├── .env                   # Environment variables
+├── .env                   # Environment variables (tạo trong server/)
 ├── .gitignore
 └── package.json
 ``` 
